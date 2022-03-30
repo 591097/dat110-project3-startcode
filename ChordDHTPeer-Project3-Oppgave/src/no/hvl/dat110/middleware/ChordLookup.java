@@ -49,7 +49,8 @@ public class ChordLookup {
 //			
 //			// do return highest_pred.findSuccessor(key) - This is a recursive call until logic returns true
 //			return highestPred.findSuccessor(key);
-//		}	
+//		}
+		
 		return (NodeInterface)node;
 	}
 	
