@@ -28,30 +28,30 @@ public class ChordLookup {
 	
 	public NodeInterface findSuccessor(BigInteger key) throws RemoteException {
 		
-//		// ask this node to find the successor of key
-//		//NodeInterface successorKey = node.findSuccessor(key);
-//		
-//		// get the successor of the node
-//		NodeInterface successor = node.getSuccessor();
-//		
-//		// get the stub for this successor (Util.getProcessStub())
-//		NodeInterface successorStub =  Util.getProcessStub(successor.getNodeName(), successor.getPort());
-//		
-//		// check that key is a member of the set {nodeid+1,...,succID} i.e. (nodeid+1 <= key <= succID) using the ComputeLogic
-//		//??????
-//		
-//		// if logic returns true, then return the successor
-//		if (Util.computeLogic(key, (node.getNodeID()+1), successor.getNodeID())){//computeLogic) {
-//			return successor;
-//		} else {
-//			// if logic returns false; call findHighestPredecessor(key)
-//			NodeInterface highestPred = findHighestPredecessor(key);
-//			
-//			// do return highest_pred.findSuccessor(key) - This is a recursive call until logic returns true
-//			return highestPred.findSuccessor(key);
-//		}
+		// ask this node to find the successor of key
+		//NodeInterface successorKey = node.findSuccessor(key);
 		
-		return (NodeInterface)node;
+		// get the successor of the node
+		NodeInterface successor = node.getSuccessor();
+		
+		// get the stub for this successor (Util.getProcessStub())
+		NodeInterface successorStub =  Util.getProcessStub(successor.getNodeName(), successor.getPort());
+		
+		// check that key is a member of the set {nodeid+1,...,succID} i.e. (nodeid+1 <= key <= succID) using the ComputeLogic
+		//??????
+		
+		// if logic returns true, then return the successor
+		if (Util.computeLogic(key, (node.getNodeID().abs()), successor.getNodeID())){//computeLogic) {
+			return successor;
+		} else {
+			// if logic returns false; call findHighestPredecessor(key)
+			NodeInterface highestPred = findHighestPredecessor(key);
+			
+			// do return highest_pred.findSuccessor(key) - This is a recursive call until logic returns true
+			return highestPred.findSuccessor(key);
+		}
+		
+		//return (NodeInterface)node;
 	}
 	
 	/**
