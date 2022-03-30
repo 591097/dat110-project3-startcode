@@ -41,8 +41,16 @@ public class Util {
 		// a formula to check whether an id falls within the set {lower, upper} using the address size as our bound (modulos operation)
 		// it modifies 'upper' and 'id' when lower > upper e.g. set (6, 2) in mod 10 = {6, 7, 8, 9, 0, 1, 2}
 		
-		// implement: read the descriptions above
 		boolean cond = false;
+
+		//Kjekke at talet er større eller lik upper, men samtidig mindre en mod-en
+		if (id.compareTo(upper) >= 0 && Hash.addressSize().compareTo(id) < 0) {
+			cond = true;
+			//Kjekke at det er mindre eller lik lower
+		} else if (id.compareTo(lower) <= 0) {
+			cond = true;
+		} 
+		// implement: read the descriptions above
 
 		
 		return cond;

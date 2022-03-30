@@ -31,7 +31,8 @@ public class FileManager {
 	private String filename;									// only filename without path and extension
 	private BigInteger hash;
 	private byte[] bytesOfFile;
-	private String sizeOfByte;
+	private String sizeOfByte; 
+	
 	
 	private Set<Message> activeNodesforFile = null;
 	
