@@ -24,11 +24,11 @@ import no.hvl.dat110.util.Hash;
 
 public class FileManager {
 	
-	private BigInteger[] replicafiles;							// array stores replicated files for distribution to matching nodes
-	private int numReplicas;									// let's assume each node manages nfiles (5 for now) - can be changed from the constructor
+	private BigInteger[] replicafiles;		// array stores replicated files for distribution to matching nodes
+	private int numReplicas;				// let's assume each node manages nfiles (5 for now) - can be changed from the constructor
 	private NodeInterface chordnode;
-	private String filepath; 									// absolute filepath
-	private String filename;									// only filename without path and extension
+	private String filepath; 				// absolute filepath
+	private String filename;				// only filename without path and extension
 	private BigInteger hash;
 	private byte[] bytesOfFile;
 	private String sizeOfByte; 
@@ -79,20 +79,24 @@ public class FileManager {
     	int counter = 0;
     	
     	// Task1: Given a filename, make replicas and distribute them to all active peers such that: pred < replica <= peer
-    	
     	// Task2: assign a replica as the primary for this file. Hint, see the slide (project 3) on Canvas
     	
     	// create replicas of the filename
-    	
+    	createReplicaFiles();
+   
 		// iterate over the replicas
-    	
+    	for (int i=0; i<numReplicas; i++) {
     	// for each replica, find its successor by performing findSuccessor(replica)
-    	
+    		NodeInterface node = chordnode.findSuccessor(replicafiles[i]);
+    		
     	// call the addKey on the successor and add the replica
-    	
+    		node.addKey(replicafiles[i]);
+    		
     	// call the saveFileContent() on the successor
-    	
+    		node.saveFileContent(filename, hash, bytesOfFile, true);
+    		
     	// increment counter
+    	}
     	
     		
 		return counter;
