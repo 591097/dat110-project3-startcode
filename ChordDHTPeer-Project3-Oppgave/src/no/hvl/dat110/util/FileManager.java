@@ -78,6 +78,9 @@ public class FileManager {
     public int distributeReplicastoPeers() throws RemoteException {
     	int counter = 0;
     	
+    	Random rnd = new Random();
+    	int index = rnd.nextInt(numReplicas-1);
+    	
     	// Task1: Given a filename, make replicas and distribute them to all active peers such that: pred < replica <= peer
     	// Task2: assign a replica as the primary for this file. Hint, see the slide (project 3) on Canvas
     	
@@ -91,11 +94,16 @@ public class FileManager {
     		
     	// call the addKey on the successor and add the replica
     		node.addKey(replicafiles[i]);
-    		
+
     	// call the saveFileContent() on the successor
-    		node.saveFileContent(filename, replicafiles[i], bytesOfFile, true);
+    		if (index == i) {
+        		node.saveFileContent(filename, replicafiles[i], bytesOfFile, true);
+    		} else {
+        		node.saveFileContent(filename, replicafiles[i], bytesOfFile, false);
+    		}
     		
     	// increment counter
+    		counter++;
     	}
     	
     		
@@ -141,17 +149,26 @@ public class FileManager {
 	 * @return 
 	 */
 	public NodeInterface findPrimaryOfItem() {
-
 		// Task: Given all the active peers of a file (activeNodesforFile()), find which is holding the primary copy
-		
-		// iterate over the activeNodesforFile
-		
+	
+ 
+		// iterate over the activeNodesforFile			
 		// for each active peer (saved as Message)
-		
-		// use the primaryServer boolean variable contained in the Message class to check if it is the primary or not
-		
-		// return the primary
-		
+		for (Message messeg : activeNodesforFile) {
+			
+			// use the primaryServer boolean variable contained in the Message class to check if it is the primary or not
+			if (messeg.isPrimaryServer()) {
+				
+				// return the primary
+				try {
+					return chordnode.findSuccessor(messeg.getNodeID()).getSuccessor();
+				} catch (RemoteException e) {
+					e.printStackTrace();
+				}
+			}
+			
+			
+		}
 		return null; 
 	}
 	
