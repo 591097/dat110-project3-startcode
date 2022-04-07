@@ -43,9 +43,9 @@ public class ChordLookup {
 		
 		// if logic returns true, then return the successor
 		if(successorStub != null) { 
-			boolean computeLogic = Util.computeLogic(key, (node.getNodeID().add(BigInteger.ONE)), successor.getNodeID());
+			boolean computeLogic = Util.computeLogic(key, (node.getNodeID().add(BigInteger.ONE)), successorStub.getNodeID());
 			if (computeLogic) {
-				return successor;
+				return successorStub;
 			} else {
 				
 				// if logic returns false; call findHighestPredecessor(key)

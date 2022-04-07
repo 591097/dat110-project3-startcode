@@ -161,7 +161,7 @@ public class FileManager {
 				
 				// return the primary
 				try {
-					return chordnode.findSuccessor(messeg.getNodeID()).getSuccessor();
+					return chordnode.findSuccessor(messeg.getNodeID()).getPredecessor();
 				} catch (RemoteException e) {
 					e.printStackTrace();
 				}
